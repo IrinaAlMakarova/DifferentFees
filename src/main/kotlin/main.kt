@@ -10,29 +10,15 @@ fun cardType(card: String = "Мир", amountOfPreviousTransfers: Int = 0, transf
     } else {
         val commission = when {
             card == "Mastercard" &&
-                    amountOfPreviousTransfers > 75_000 -> (0.006 * transferAmount + 20)
-
-            card == "Mastercard" &&
-                    amountOfPreviousTransfers <= 75_000 &&
                     (amountOfPreviousTransfers + transferAmount) > 75_000 -> (0.006 * ((amountOfPreviousTransfers + transferAmount) - 75_000) + 20)
 
             card == "Mastercard" &&
-                    amountOfPreviousTransfers <= 75_000 &&
                     (amountOfPreviousTransfers + transferAmount) <= 75_000 -> 0
 
-            card == "Visa" &&
-                    amountOfPreviousTransfers > maximumTransferMonth -> (if (0.0075 * transferAmount < 35) 35 else (0.0075 * transferAmount))
-
-            card == "Visa" &&
-                    amountOfPreviousTransfers <= maximumTransferMonth &&
-                    (amountOfPreviousTransfers + transferAmount) > maximumTransferMonth -> (if (0.0075 * ((amountOfPreviousTransfers + transferAmount) - maximumTransferMonth) < 35) 35 else (0.0075 * ((amountOfPreviousTransfers + transferAmount) - maximumTransferMonth)))
-
-            card == "Visa" &&
-                    amountOfPreviousTransfers <= maximumTransferMonth &&
-                    (amountOfPreviousTransfers + transferAmount) <= maximumTransferMonth -> 35
+            card == "Visa" -> (if (0.0075 * transferAmount < 35) 35 else (0.0075 * transferAmount))
 
             else -> 0
         }
-        return println(commission)
+        return println("Сумма комиссии составит " + commission)
     }
 }
